@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Certification Tracker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <img src="images/logo.jpg" class="logo" alt="Logo">
+            <span class="tagline">"Easily Track Your Certifications"</span>
+            <ul>
+                <li><a href="home.html">Home</a></li>
+                <li><a href="instructionguide.html">Instruction Guide</a></li>
+                <li><a href="aboutus.html">About Us</a></li>
+            </ul>
+        </nav>
+
+        <div class="content">
+            <h1 class="title">Student Certification Tracker</h1>
+
+            <!-- Form Box for Name and ID Input -->
+            <div class="form-box">
+                <form action="results.html" method="GET" class="certification-form" autocomplete="off">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required pattern="[A-Za-z\s]+"
+                           title="Please enter letters only"
+                           oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, '')" autocomplete="off">
+                    
+                    <label for="id">ID:</label>
+                    <input type="text" id="id" name="id" required pattern="\d+"
+                           title="Please enter numbers only"
+                           oninput="this.value = this.value.replace(/\D/g, '')" autocomplete="off">
+                    
+                    <button type="submit">Track Certifications</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    
+    <script>
+        const certificationData = {
+            "Rufael Solomon,233323": {
+                "attempted": ["Project Management Professional (PMP)"],
+                "completed": ["Project Management Professional (PMP)"],
+                "dateCompleted": ["2024-04-20"]
+            },
+            "Jenehra Allen,345454": {
+                "attempted": ["ACDIS CDI Apprenticeship"],
+                "completed": ["ACDIS CDI Apprenticeship"],
+                "dateCompleted": ["2024-04-25"]
+            },
+            "Oluwaseyi Odeyemi,167453": {
+                "attempted": ["CompTIA Security+"],
+                "completed": ["CompTIA Security+"],
+                "dateCompleted": ["2024-05-05"]
+            },
+            "Clauvert Chingkala,867453": {
+                "attempted": ["Certified Information Security Manager (CISM)"],
+                "completed": ["Certified Information Security Manager (CISM)"],
+                "dateCompleted": ["2024-05-15"]
+            },
+            "Rilwan Ajibola,485845": {
+                "attempted": ["Certified Information Systems Security Professional (CISSP)"],
+                "completed": ["Certified Information Systems Security Professional (CISSP)"],
+                "dateCompleted": ["2024-06-01"]
+            },
+            "Marlon Taylor,903432": {
+                "attempted": ["AWS Certified Solutions Architect"],
+                "completed": ["AWS Certified Solutions Architect"],
+                "dateCompleted": ["2024-06-10"]
+            }
+        };
+    
+        function handleFormSubmission(event) {
+            event.preventDefault();
+            const name = document.getElementById("name").value.trim();
+            const id = document.getElementById("id").value.trim();
+            const key = `${name},${id}`;
+            
+            if (certificationData[key]) {
+                const data = certificationData[key];
+                const queryString = `?name=${encodeURIComponent(name)}&id=${encodeURIComponent(id)}&attempted=${encodeURIComponent(data.attempted)}&completed=${encodeURIComponent(data.completed)}&dateCompleted=${encodeURIComponent(data.dateCompleted)}`;
+                window.location.href = "results.html" + queryString;
+            } else {
+                alert("No certification data found for the entered Name and ID.");
+            }
+        }
+    
+        document.querySelector(".certification-form").addEventListener("submit", handleFormSubmission);
+    </script>   
+     
+    <footer id="contactUs">
+        <div class="contact-box">
+            <h2>Contact Us</h2>
+            <div class="contact-details">
+                <p>Email: <a href="mailto:info@phoenixtechnology.com">info@phoenixtechnology.com</a></p>
+                <p>Phone: (410) 555-0199</p>
+                <p>Address: 123 Innovation Drive, Suite 456 <br>Baltimore, MD 21201</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
